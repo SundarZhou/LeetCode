@@ -40,6 +40,8 @@ def two_sum(numbers, target)
     	"没有任何两个数值符合条件"
     end
 end
+nums = 100000000.times.map{|i| i}
+target = 1000000
 t1 = Time.now
 p get_sum_num(nums, target)
 t1_end = Time.now
@@ -50,9 +52,9 @@ t2_end = Time.now
 p "two_sum 使用时间 #{t2_end - t1}"
 
 if t2_end < t1_end
-	"two_sum 更快"
-elsif t2_end < t1_end
-  "get_sum_num 更快"
+	p "two_sum 更快"
+elsif t2_end > t1_end
+  p "get_sum_num 更快"
 else
-  "几乎不可能得一样快了"
+  p "几乎不可能得一样快了"
 end
