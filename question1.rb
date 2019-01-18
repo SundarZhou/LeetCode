@@ -40,8 +40,7 @@ def two_sum(numbers, target)
     	"没有任何两个数值符合条件"
     end
 end
-nums = 100000000.times.map{|i| i}
-target = 1000000
+
 t1 = Time.now
 p get_sum_num(nums, target)
 t1_end = Time.now
