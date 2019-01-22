@@ -11,12 +11,12 @@ num1 = gets
 p "输入第二个数字,以 -> 分割"
 num2 = gets
 
-def get_new_num num
-  num.rstrip.split('->').reverse.join().to_i
-end
-
-def get_result num1, num2
+def get_new_num num1, num2
+  num1 = num1.rstrip.split('->').reverse.join().to_i
+  num2 = num2.rstrip.split('->').reverse.join().to_i
   (num1+num2).to_s.reverse.split("").join('->')
 end
 
-p get_result(get_new_num(num1), get_new_num(num2))
+
+
+p get_new_num(num1, num2)

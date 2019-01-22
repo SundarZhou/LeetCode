@@ -7,12 +7,16 @@ p "输入一个和"
 target = gets.to_i
 
 def get_sum_num(nums, target)
-	num1 = nums.find{ |num| (target - num) != num && (nums.include? target - num)}
+	num1 = nums.find{ |num| (nums.include? target - num) && (num == target - num ? (nums.each_index.select{|i| nums[i] == num}.size > 1) : true })}
 	if num1
 		num2 = target - num1
-		index1 = nums.index num1
-		index2 = nums.index num2
-		[index1, index2]
+    if num1 == num2
+      nums.each_index.select{|i| nums[i] == num1}[0..1]
+    else
+  		index1 = nums.index num1
+  		index2 = nums.index num2
+  		[index1, index2]
+    end
 	else
 		"没有任何两个数值符合条件"
 	end
@@ -29,13 +33,13 @@ end
 # 方法来至 https://ruby-china.org/topics/26529，所有时间  80ms
 # 我查查如何对比两个方法哪个更快更好
 # 他原本的方法 + 1 ，不明白为什么要这样做，但是 + 1后是错的
-def two_sum(numbers, target)
-    hash = numbers.map.with_index.to_h
-    found = numbers.find.with_index do |n, index|
+def two_sum(nums, target)
+    hash = nums.map.with_index.to_h
+    found = nums.find.with_index do |n, index|
       target_index = hash[target - n] and target_index != index
     end
     if found
-      [numbers.index(found), hash[target - found]].sort
+      [nums.index(found), hash[target - found]].sort
     else
     	"没有任何两个数值符合条件"
     end
@@ -57,6 +61,18 @@ elsif t2_end > t1_end
 else
   p "几乎不可能得一样快了"
 end
+# 加上了考虑 数组有重复元素的情况，不创建hash的方法慢了很多
+#https://leetcode-cn.com/problems/two-sum/submissions/ 可以在这个网站运行查看时间
 
-
-# 测试过发现，找到满足条件的 两个数值这一步是一样，直接去找下标与先创建hash再找下标，明显创建hash显得多余了，不知道是我没有好好审题还是什么原因，嗯……有待修改
+#大佬的方法
+#把另一个数作为key，然后把当前这个值的下标做为value,继续往下，另一个值作为key了所以已经有满足条件的两个数字时，返回当前的index与另一个的value
+def num_targets(nums, target)
+  tmp = {}
+  nums.each_with_index do |el, idx|
+    if tmp[el].nil?
+      tmp[target - el] = idx
+    else
+      return [tmp[el], idx]
+    end
+  end
+end
