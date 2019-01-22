@@ -21,12 +21,13 @@ puts <<EOF
 
 EOF
 p "输入一个整数"
-num = gets.to_i
+x = gets.to_i
 
 
-def reverse_num(num)
-	return -reverse_num(-num) if num < 0
-	num.to_s.reverse.to_i
+def reverse(x)
+	return -reverse(-x) if x < 0
+	res = x.to_s.reverse.to_i
+	res > 2**31-1 ? 0 : res
 end
 
-p reverse_num(num)
+p reverse(x)
